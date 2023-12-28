@@ -12,7 +12,7 @@ import java.util.Optional;
 public class EntregadorService {
 
     @Autowired
-    EntregadorRepository repository;
+    private EntregadorRepository repository;
 
     public List<Entregador> BuscarAll(){
         return repository.findAll();

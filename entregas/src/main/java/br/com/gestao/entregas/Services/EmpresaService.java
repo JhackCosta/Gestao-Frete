@@ -10,8 +10,9 @@ import java.util.Optional;
 
 @Service
 public class EmpresaService {
+
     @Autowired
-    EmpresaRepository repository;
+    private EmpresaRepository repository;
 
     public List<Empresa> BuscarAll(){
         return repository.findAll();
