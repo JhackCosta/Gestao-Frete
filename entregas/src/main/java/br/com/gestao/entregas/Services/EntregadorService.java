@@ -1,11 +1,15 @@
 package br.com.gestao.entregas.Services;
 
 import br.com.gestao.entregas.Repositories.EntregadorRepository;
-import br.com.gestao.entregas.entities.Entregador;
+import br.com.gestao.entregas.entities.Entregador.DadosAtualizacaoEntregador;
+import br.com.gestao.entregas.entities.Entregador.DadosCadastroEntregador;
+import br.com.gestao.entregas.entities.Entregador.DadosListagemEntregador;
+import br.com.gestao.entregas.entities.Entregador.Entregador;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,8 +18,8 @@ public class EntregadorService {
     @Autowired
     private EntregadorRepository repository;
 
-    public List<Entregador> BuscarAll(){
-        return repository.findAll();
+    public Page<DadosListagemEntregador> BuscarAll(Pageable paginacao){
+        return repository.findAllByAtivoTrue(paginacao).map(DadosListagemEntregador::new);
     }
 
     public Optional<Entregador> Buscar(Long id){
@@ -25,14 +29,20 @@ public class EntregadorService {
         return repository.findById(id);
     }
 
-    public void Adicionar(Entregador entregador){
+    public void Adicionar(DadosCadastroEntregador dados){
+
+        Entregador entregador = new Entregador(dados);
         repository.save(entregador);
     }
 
-    public void Deletetar(Long id){
-        repository.deleteById(id);
+    public void alterar(DadosAtualizacaoEntregador dados){
+        Entregador entregador = repository.getReferenceById(dados.id());
+        entregador.atualizarInformacoes(dados);
     }
 
-    public void alterar(){}
+    public void Deletetar(Long id){
+        Entregador entregador = repository.getReferenceById(id);
+        entregador.excluir();
+    }
 
 }

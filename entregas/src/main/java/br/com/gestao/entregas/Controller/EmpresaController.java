@@ -2,12 +2,14 @@ package br.com.gestao.entregas.Controller;
 
 
 import br.com.gestao.entregas.Services.EmpresaService;
-import br.com.gestao.entregas.entities.Empresa;
+import br.com.gestao.entregas.entities.Empresa.Empresa;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,8 +43,12 @@ public class EmpresaController {
 
     @Operation(summary = "Cadastro de empresa", method = "POST")
     @PostMapping(value = "/criar", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void Post(@RequestBody Empresa empresa){
+    @Transactional
+    public ResponseEntity<Object> Post(@RequestBody Empresa empresa){
+
         service.Adicionar(empresa);
+       return new ResponseEntity<>(HttpStatus.CREATED);
+
     }
 
     @Operation(summary = "Deletar empresa por id", method = "DELETE")

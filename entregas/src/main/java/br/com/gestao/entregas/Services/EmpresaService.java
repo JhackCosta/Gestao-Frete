@@ -1,7 +1,7 @@
 package br.com.gestao.entregas.Services;
 
 import br.com.gestao.entregas.Repositories.EmpresaRepository;
-import br.com.gestao.entregas.entities.Empresa;
+import br.com.gestao.entregas.entities.Empresa.Empresa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
