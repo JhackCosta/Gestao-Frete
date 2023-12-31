@@ -24,12 +24,19 @@ public abstract class Usuario {
 
     @Column(name = "E-MAIL")
     private String email;
+
     @Column(name = "CONTATO")
     private String contato;
+
+    @Column(name = "ATIVO")
+    private boolean ativo = true;
 
     public Usuario(String nome, String email, String contato) {
         this.nome = nome;
         this.email = email;
         this.contato = contato;
+
     }
+
+
 }

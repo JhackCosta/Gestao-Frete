@@ -22,9 +22,6 @@ public class Entregador extends Usuario {
     @Column(name = "Realizando-Entrega")
     private boolean realizandoEntrega = false;
 
-    private boolean ativo = true;
-
-
     public Entregador(DadosCadastroEntregador dados) {
         super(dados.nome(), dados.email(), dados.contato());
         this.cnh = dados.cnh();
@@ -49,7 +46,7 @@ public class Entregador extends Usuario {
             this.categoria = dados.categoria();
         }
         if(dados.ativo() != null) {
-            this.ativo = dados.ativo();
+            super.setAtivo(dados.ativo());
         }
         if(dados.realizandoEntrega() != null) {
             alterarStatusFrete(dados.realizandoEntrega());
@@ -61,7 +58,7 @@ public class Entregador extends Usuario {
     }
 
     public void excluir() {
-        this.ativo=false;
+        super.setAtivo(false);
     }
 
 }

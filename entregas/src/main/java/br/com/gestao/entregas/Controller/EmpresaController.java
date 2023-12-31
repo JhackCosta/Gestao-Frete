@@ -2,17 +2,22 @@ package br.com.gestao.entregas.Controller;
 
 
 import br.com.gestao.entregas.Services.EmpresaService;
-import br.com.gestao.entregas.entities.Empresa.Empresa;
+import br.com.gestao.entregas.entities.Empresa.DadosAtualizacaoEmpresa;
+import br.com.gestao.entregas.entities.Empresa.DadosCadastroEmpresa;
+import br.com.gestao.entregas.entities.Empresa.DadosListagemEmpresa;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -25,14 +30,15 @@ public class EmpresaController {
 
     @Operation(summary = "lista de empresas", method = "GET")
     @GetMapping("/listAll")
-    public List<Empresa> GetAll(){
-        return service.BuscarAll();
+    public ResponseEntity<Page<DadosListagemEmpresa>> GetAll(@PageableDefault(size = 10, sort = "nome") Pageable paginacao){
+        Page<DadosListagemEmpresa> page = service.BuscarAll(paginacao);
+        return ResponseEntity.ok(page);
     }
 
     @Operation(summary = "Buscar empresa por id", method = "GET")
     @GetMapping("/id={id}")
-    public ResponseEntity<Empresa> Get(@PathVariable Long id){
-        Optional<Empresa> empresa = service.Buscar(id);
+    public ResponseEntity<DadosListagemEmpresa> Get(@PathVariable Long id){
+        Optional<DadosListagemEmpresa> empresa = service.Buscar(id);
 
         if (empresa.isPresent()) {
             return ResponseEntity.ok(empresa.get());
@@ -44,20 +50,25 @@ public class EmpresaController {
     @Operation(summary = "Cadastro de empresa", method = "POST")
     @PostMapping(value = "/criar", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
-    public ResponseEntity<Object> Post(@RequestBody Empresa empresa){
-
+    public ResponseEntity<HttpStatus> Post(@RequestBody @Valid DadosCadastroEmpresa empresa){
         service.Adicionar(empresa);
-       return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<HttpStatus>(HttpStatus.CREATED);
 
-    }
-
-    @Operation(summary = "Deletar empresa por id", method = "DELETE")
-    @DeleteMapping("/id={id}")
-    public void Delete(@PathVariable Long id){
-        service.Deletetar(id);
     }
 
     @Operation(summary = "alterar empresa", method = "PUT")
     @PutMapping("/alterar")
-    public void Put(){}
+    public void Put(@RequestBody @Valid DadosAtualizacaoEmpresa dados){
+        service.alterar(dados);
+        ResponseEntity.ok();
+    }
+
+    @Operation(summary = "Deletar empresa por id", method = "DELETE")
+    @DeleteMapping("/id={id}")
+    public ResponseEntity<Object> Delete(@PathVariable Long id){
+        service.Deletetar(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }

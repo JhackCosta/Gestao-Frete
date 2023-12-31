@@ -22,11 +22,11 @@ public class EntregadorService {
         return repository.findAllByAtivoTrue(paginacao).map(DadosListagemEntregador::new);
     }
 
-    public Optional<Entregador> Buscar(Long id){
+    public Optional<DadosListagemEntregador> Buscar(Long id){
         if (id == null) {
             throw new IllegalArgumentException("O ID não pode ser nulo");
         }
-        return repository.findById(id);
+        return repository.findById(id).map(DadosListagemEntregador::new);
     }
 
     public void Adicionar(DadosCadastroEntregador dados){

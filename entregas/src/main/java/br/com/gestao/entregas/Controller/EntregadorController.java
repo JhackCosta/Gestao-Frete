@@ -37,8 +37,8 @@ public class EntregadorController {
 
     @Operation(summary = "Buscar entregadores por id", method = "GET")
     @GetMapping("/id={id}")
-    public ResponseEntity<Entregador> Get(@PathVariable Long id){
-        Optional<Entregador> entregador = service.Buscar(id);
+    public ResponseEntity<DadosListagemEntregador> Get(@PathVariable Long id){
+        Optional<DadosListagemEntregador> entregador = service.Buscar(id);
 
         if (entregador.isPresent()) {
             return ResponseEntity.ok(entregador.get());
@@ -50,15 +50,8 @@ public class EntregadorController {
     @Operation(summary = "Cadastro de entregador", method = "POST")
     @PostMapping(value = "/criar", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<HttpStatus> Post(@RequestBody @Valid DadosCadastroEntregador entregador){
-                service.Adicionar(entregador);
-         return new ResponseEntity<HttpStatus>(HttpStatus.CREATED);
-    }
-
-    @Operation(summary = "Deletar entregador por id", method = "DELETE")
-    @DeleteMapping("/id={id}")
-    public ResponseEntity<Object> Delete(@PathVariable Long id){
-        service.Deletetar(id);
-        return ResponseEntity.noContent().build();
+            service.Adicionar(entregador);
+            return new ResponseEntity<HttpStatus>(HttpStatus.CREATED);
     }
 
     @Operation(summary = "alterar entregador", method = "PUT")
@@ -68,5 +61,14 @@ public class EntregadorController {
         service.alterar(dados);
         ResponseEntity.ok();
     }
+
+    @Operation(summary = "Deletar entregador por id", method = "DELETE")
+    @DeleteMapping("/id={id}")
+    public ResponseEntity<Object> Delete(@PathVariable Long id){
+        service.Deletetar(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
 
 }
