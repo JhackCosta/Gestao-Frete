@@ -1,4 +1,4 @@
-package br.com.gestao.entregas.entities.Entregador;
+package br.com.gestao.entregas.entities.entregador;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

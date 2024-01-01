@@ -1,4 +1,4 @@
-package br.com.gestao.entregas.entities.Empresa;
+package br.com.gestao.entregas.entities.empresa;
 
 import jakarta.validation.constraints.NotNull;
 

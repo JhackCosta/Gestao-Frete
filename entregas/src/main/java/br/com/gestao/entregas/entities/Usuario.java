@@ -11,22 +11,24 @@ import lombok.*;
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-//@DiscriminatorColumn(name = "DTYPE")
 public abstract class Usuario {
 
-    @EqualsAndHashCode.Include
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
+    @EqualsAndHashCode.Include
+    @Column(name = "CODIGO")
     private Long id;
+
     @Column(name = "NOME")
     private String nome;
 
-    @Column(name = "E-MAIL")
+    @Column(name = "E_MAIL")
     private String email;
 
     @Column(name = "CONTATO")
     private String contato;
+
+  //  @OneToMany(mappedBy = "proprietario")
+  //  private List<Veiculo> veiculo;
 
     @Column(name = "ATIVO")
     private boolean ativo = true;
@@ -35,7 +37,6 @@ public abstract class Usuario {
         this.nome = nome;
         this.email = email;
         this.contato = contato;
-
     }
 
 

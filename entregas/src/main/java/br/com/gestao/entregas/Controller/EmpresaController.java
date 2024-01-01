@@ -2,9 +2,9 @@ package br.com.gestao.entregas.Controller;
 
 
 import br.com.gestao.entregas.Services.EmpresaService;
-import br.com.gestao.entregas.entities.Empresa.DadosAtualizacaoEmpresa;
-import br.com.gestao.entregas.entities.Empresa.DadosCadastroEmpresa;
-import br.com.gestao.entregas.entities.Empresa.DadosListagemEmpresa;
+import br.com.gestao.entregas.entities.empresa.DadosAtualizacaoEmpresa;
+import br.com.gestao.entregas.entities.empresa.DadosCadastroEmpresa;
+import br.com.gestao.entregas.entities.empresa.DadosListagemEmpresa;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -22,7 +22,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/empresa", produces = {"application/json"})
-@Tag(name = "Controle-Empresa")
+@Tag(name = "Controle_Empresa")
 public class EmpresaController {
 
     @Autowired

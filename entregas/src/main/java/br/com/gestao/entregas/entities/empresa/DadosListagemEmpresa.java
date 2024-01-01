@@ -1,6 +1,4 @@
-package br.com.gestao.entregas.entities.Empresa;
-
-import br.com.gestao.entregas.entities.Entregador.Entregador;
+package br.com.gestao.entregas.entities.empresa;
 
 public record DadosListagemEmpresa(String nome, String email,
                                    String contato, String cnpj, boolean ativo) {
@@ -8,5 +6,7 @@ public record DadosListagemEmpresa(String nome, String email,
         this(empresa.getNome(), empresa.getEmail(),
                 empresa.getContato(), empresa.getCnpj(), empresa.isAtivo());
     };
+
+
 
 }

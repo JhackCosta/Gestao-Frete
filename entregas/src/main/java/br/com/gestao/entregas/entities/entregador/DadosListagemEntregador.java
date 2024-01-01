@@ -1,4 +1,4 @@
-package br.com.gestao.entregas.entities.Entregador;
+package br.com.gestao.entregas.entities.entregador;
 
 public record DadosListagemEntregador(String nome, String email,
                                       String contato, String cnh, String categoria, boolean ativo) {

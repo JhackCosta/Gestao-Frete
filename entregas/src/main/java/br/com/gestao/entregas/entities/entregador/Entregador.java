@@ -1,25 +1,24 @@
-package br.com.gestao.entregas.entities.Entregador;
+package br.com.gestao.entregas.entities.entregador;
 
 import br.com.gestao.entregas.entities.Usuario;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity(name = "Entregador")
-@Table(name = "Entregador")
+@Entity(name = "ENTREGRADOR")
+@Table(name = "ENTREGRADOR")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@DiscriminatorValue("entregador")
 public class Entregador extends Usuario {
 
     @Column(name = "CNH", unique = true)
     private String cnh;
 
-    @Column(name = "Categoria-CNH")
+    @Column(name = "Categoria_CNH")
     private String categoria;
 
-    @Column(name = "Realizando-Entrega")
+    @Column(name = "Realizando_Entrega")
     private boolean realizandoEntrega = false;
 
     public Entregador(DadosCadastroEntregador dados) {

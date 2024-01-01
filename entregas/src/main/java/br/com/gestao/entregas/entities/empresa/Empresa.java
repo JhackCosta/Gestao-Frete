@@ -1,6 +1,5 @@
-package br.com.gestao.entregas.entities.Empresa;
+package br.com.gestao.entregas.entities.empresa;
 
-import br.com.gestao.entregas.entities.Entregador.DadosAtualizacaoEntregador;
 import br.com.gestao.entregas.entities.Usuario;
 import jakarta.persistence.*;
 import lombok.*;

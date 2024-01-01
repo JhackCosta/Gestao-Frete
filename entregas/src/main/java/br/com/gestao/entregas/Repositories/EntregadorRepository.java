@@ -1,6 +1,6 @@
 package br.com.gestao.entregas.Repositories;
 
-import br.com.gestao.entregas.entities.Entregador.Entregador;
+import br.com.gestao.entregas.entities.entregador.Entregador;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

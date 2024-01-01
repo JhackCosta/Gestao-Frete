@@ -1,10 +1,9 @@
 package br.com.gestao.entregas.Controller;
 
 import br.com.gestao.entregas.Services.EntregadorService;
-import br.com.gestao.entregas.entities.Entregador.DadosAtualizacaoEntregador;
-import br.com.gestao.entregas.entities.Entregador.DadosCadastroEntregador;
-import br.com.gestao.entregas.entities.Entregador.DadosListagemEntregador;
-import br.com.gestao.entregas.entities.Entregador.Entregador;
+import br.com.gestao.entregas.entities.entregador.DadosAtualizacaoEntregador;
+import br.com.gestao.entregas.entities.entregador.DadosCadastroEntregador;
+import br.com.gestao.entregas.entities.entregador.DadosListagemEntregador;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -22,7 +21,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/entregador", produces = {"application/json"})
-@Tag(name = "Controle-Entregadores")
+@Tag(name = "Controle_Entregadores")
 public class EntregadorController {
 
     @Autowired

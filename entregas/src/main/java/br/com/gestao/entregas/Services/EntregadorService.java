@@ -1,10 +1,10 @@
 package br.com.gestao.entregas.Services;
 
 import br.com.gestao.entregas.Repositories.EntregadorRepository;
-import br.com.gestao.entregas.entities.Entregador.DadosAtualizacaoEntregador;
-import br.com.gestao.entregas.entities.Entregador.DadosCadastroEntregador;
-import br.com.gestao.entregas.entities.Entregador.DadosListagemEntregador;
-import br.com.gestao.entregas.entities.Entregador.Entregador;
+import br.com.gestao.entregas.entities.entregador.DadosAtualizacaoEntregador;
+import br.com.gestao.entregas.entities.entregador.DadosCadastroEntregador;
+import br.com.gestao.entregas.entities.entregador.DadosListagemEntregador;
+import br.com.gestao.entregas.entities.entregador.Entregador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
