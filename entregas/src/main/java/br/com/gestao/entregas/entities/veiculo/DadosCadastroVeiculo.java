@@ -6,13 +6,12 @@ import jakarta.validation.constraints.NotNull;
 
 public record DadosCadastroVeiculo(
         @NotNull
-        @NotBlank
-        Entregador proprietario,
+        Long idProprietario,
         @NotBlank
         String marca,
-        @NotBlank
+        @NotNull
         Tipo tipo,
-        @NotBlank
+        @NotNull
         Double peso) {
 
 }

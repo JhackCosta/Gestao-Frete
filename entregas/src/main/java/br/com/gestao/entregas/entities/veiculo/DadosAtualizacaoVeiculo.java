@@ -7,7 +7,7 @@ public record DadosAtualizacaoVeiculo(
         @NotBlank
         Long id,
         @NotBlank
-        Entregador proprietario,
+        Long idProprietario,
         String marca,
         Tipo tipo,
         Double peso) {

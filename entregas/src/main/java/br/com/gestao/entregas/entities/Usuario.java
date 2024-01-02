@@ -14,6 +14,7 @@ import lombok.*;
 public abstract class Usuario {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @EqualsAndHashCode.Include
     @Column(name = "CODIGO")
     private Long id;

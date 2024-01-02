@@ -2,11 +2,14 @@ package br.com.gestao.entregas.entities.veiculo;
 
 
 import br.com.gestao.entregas.entities.Usuario;
+import br.com.gestao.entregas.entities.entregador.Entregador;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Optional;
 
 @Entity
 @Table(name = "Veiculo")
@@ -21,7 +24,7 @@ public class Veiculo {
     @Column(name = "ID_VEICULO")
     private Long id;
 
-    @JoinColumn(name = "FK_PROPRIETARIO")
+    @JoinColumn(name = "FK_PROPRIETARIO" , nullable = false)
     @ManyToOne
     private Usuario proprietario;
 
@@ -40,10 +43,16 @@ public class Veiculo {
         this.marca = dados.marca();
         this.peso = dados.peso();
         this.tipo = dados.tipo();
-        this.proprietario = dados.proprietario();
     }
 
-    public void atualizarInformacoes(DadosAtualizacaoVeiculo dados) {
+    public Veiculo(DadosCadastroVeiculo dados, Entregador proprietario) {
+        this.marca = dados.marca();
+        this.peso = dados.peso();
+        this.tipo = dados.tipo();
+        this.proprietario = proprietario;
+    }
+
+    public void atualizarInformacoes(DadosAtualizacaoVeiculo dados , Entregador proprietario) {
 
         if (dados.peso() != null) {
             this.peso = dados.peso();
@@ -57,8 +66,8 @@ public class Veiculo {
             this.marca = dados.marca();
         }
 
-        if (dados.proprietario() != null) {
-            this.proprietario = dados.proprietario();
+        if (proprietario != null) {
+            this.proprietario = proprietario;
         }
     }
 }

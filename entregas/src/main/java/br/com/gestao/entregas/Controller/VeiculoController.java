@@ -6,6 +6,7 @@ import br.com.gestao.entregas.entities.veiculo.DadosCadastroVeiculo;
 import br.com.gestao.entregas.entities.veiculo.DadosListagemVeiculo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -47,7 +48,7 @@ public class VeiculoController {
 
     @Operation(summary = "Cadastro de veiculo", method = "POST")
     @PostMapping(value = "/criar", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<HttpStatus> Post(@RequestBody @Valid DadosCadastroVeiculo veiculo){
+    public ResponseEntity<HttpStatus> Post(@RequestBody @Valid DadosCadastroVeiculo veiculo) {
         service.Adicionar(veiculo);
         return new ResponseEntity<HttpStatus>(HttpStatus.CREATED);
     }
