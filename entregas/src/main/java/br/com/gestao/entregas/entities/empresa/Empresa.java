@@ -13,7 +13,7 @@ import lombok.*;
 //@DiscriminatorValue("empresa")
 public class Empresa extends Usuario {
 
-    @Column(name = "CNPJ")
+    @Column(name = "CNPJ", unique = true)
     private String cnpj;
 
     public Empresa(DadosCadastroEmpresa dados) {
@@ -41,7 +41,4 @@ public class Empresa extends Usuario {
 
     }
 
-    public void excluir() {
-        super.setAtivo(false);
-    }
 }

@@ -63,6 +63,7 @@ public class EntregadorController {
 
     @Operation(summary = "Deletar entregador por id", method = "DELETE")
     @DeleteMapping("/id={id}")
+    @Transactional
     public ResponseEntity<Object> Delete(@PathVariable Long id){
         service.Deletetar(id);
         return ResponseEntity.noContent().build();

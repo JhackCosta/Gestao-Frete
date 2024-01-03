@@ -56,8 +56,4 @@ public class Entregador extends Usuario {
         this.realizandoEntrega = step;
     }
 
-    public void excluir() {
-        super.setAtivo(false);
-    }
-
 }

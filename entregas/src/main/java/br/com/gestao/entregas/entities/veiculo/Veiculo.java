@@ -9,8 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Optional;
-
 @Entity
 @Table(name = "Veiculo")
 @Getter
@@ -38,18 +36,24 @@ public class Veiculo {
     @Column(name = "PESO")
     private Double peso;
 
+    @Column(name = "Placa", unique = true)
+    private String placa;
+
 
     public Veiculo(DadosCadastroVeiculo dados) {
         this.marca = dados.marca();
         this.peso = dados.peso();
         this.tipo = dados.tipo();
+        this.placa = dados.placa();
     }
 
     public Veiculo(DadosCadastroVeiculo dados, Entregador proprietario) {
         this.marca = dados.marca();
         this.peso = dados.peso();
         this.tipo = dados.tipo();
+        this.placa = dados.placa();
         this.proprietario = proprietario;
+
     }
 
     public void atualizarInformacoes(DadosAtualizacaoVeiculo dados , Entregador proprietario) {
@@ -64,6 +68,10 @@ public class Veiculo {
 
         if (dados.marca() != null) {
             this.marca = dados.marca();
+        }
+
+        if (dados.placa() != null) {
+            this.placa = dados.placa();
         }
 
         if (proprietario != null) {

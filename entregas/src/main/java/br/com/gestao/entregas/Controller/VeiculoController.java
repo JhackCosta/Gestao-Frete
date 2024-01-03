@@ -6,7 +6,6 @@ import br.com.gestao.entregas.entities.veiculo.DadosCadastroVeiculo;
 import br.com.gestao.entregas.entities.veiculo.DadosListagemVeiculo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -63,6 +62,7 @@ public class VeiculoController {
 
     @Operation(summary = "Deletar veiculo por id", method = "DELETE")
     @DeleteMapping("/id={id}")
+    @Transactional
     public ResponseEntity<Object> Delete(@PathVariable Long id){
         service.Deletetar(id);
         return ResponseEntity.noContent().build();

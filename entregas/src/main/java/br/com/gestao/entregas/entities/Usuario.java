@@ -19,7 +19,7 @@ public abstract class Usuario {
     @Column(name = "CODIGO")
     private Long id;
 
-    @Column(name = "NOME")
+    @Column(name = "NOME", unique = true)
     private String nome;
 
     @Column(name = "E_MAIL")
@@ -32,12 +32,18 @@ public abstract class Usuario {
   //  private List<Veiculo> veiculo;
 
     @Column(name = "ATIVO")
-    private boolean ativo = true;
+    private boolean ativo;
 
     public Usuario(String nome, String email, String contato) {
         this.nome = nome;
         this.email = email;
         this.contato = contato;
+        this.ativo = true;
+
+    }
+
+    public void excluir() {
+       this.ativo=false;
     }
 
 
