@@ -8,7 +8,6 @@ public record DadosAtualizacaoVeiculo(
         Long idProprietario,
         String marca,
         Tipo tipo,
-        Double peso,
         String placa
         ) {
 }

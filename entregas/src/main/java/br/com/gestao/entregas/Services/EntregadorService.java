@@ -20,18 +20,18 @@ public class EntregadorService {
     @Autowired
     private EntregadorRepository repository;
 
-    public Page<DadosListagemEntregador> BuscarAll(Pageable paginacao){
+    public Page<DadosListagemEntregador> buscarAll(Pageable paginacao){
         return repository.findAll(paginacao).map(DadosListagemEntregador::new);
     }
 
-    public Optional<DadosListagemEntregador> Buscar(Long id){
+    public Optional<DadosListagemEntregador> buscar(Long id){
         if (id == null) {
             throw new IllegalArgumentException("O ID não pode ser nulo");
         }
         return repository.findById(id).map(DadosListagemEntregador::new);
     }
 
-    public void Adicionar(DadosCadastroEntregador dados){
+    public void adicionar(DadosCadastroEntregador dados){
 
         this.verificaCampos(dados.nome(), dados.cnh());
 
@@ -47,17 +47,19 @@ public class EntregadorService {
         entregador.atualizarInformacoes(dados);
     }
 
-    public void Deletetar(Long id){
+    public void deletetar(Long id){
         Entregador entregador = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Entregador não encontrado para o ID: " + id));
+
+        entregador.excluir();
     }
 
     public void verificaCampos(String nome, String cnh){
         if (repository.existsByNome(nome)) {
-            throw new DataIntegrityViolationException("Empresa com este nome: " + nome + " ja cadastrado");
+            throw new DataIntegrityViolationException("Entregador com este nome: " + nome + " ja cadastrado");
         }
         if (repository.existsByCnh(cnh)) {
-            throw new DataIntegrityViolationException("Empresa com esta CNH: " + cnh + " ja cadastrado");
+            throw new DataIntegrityViolationException("Entregador com esta CNH: " + cnh + " ja cadastrado");
         }
     }
 

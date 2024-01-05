@@ -5,6 +5,7 @@ import br.com.gestao.entregas.entities.empresa.DadosAtualizacaoEmpresa;
 import br.com.gestao.entregas.entities.empresa.DadosCadastroEmpresa;
 import br.com.gestao.entregas.entities.empresa.DadosListagemEmpresa;
 import br.com.gestao.entregas.entities.empresa.Empresa;
+import br.com.gestao.entregas.infra.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -19,18 +20,18 @@ public class EmpresaService {
     @Autowired
     private EmpresaRepository repository;
 
-    public Page<DadosListagemEmpresa> BuscarAll(Pageable paginacao){
+    public Page<DadosListagemEmpresa> buscarAll(Pageable paginacao){
         return repository.findAll(paginacao).map(DadosListagemEmpresa::new);
     }
 
-    public Optional<DadosListagemEmpresa> Buscar(Long id){
+    public Optional<DadosListagemEmpresa> buscar(Long id){
         if (id == null) {
             throw new IllegalArgumentException("O ID não pode ser nulo");
         }
         return repository.findById(id).map(DadosListagemEmpresa::new);
     }
 
-    public void Adicionar(DadosCadastroEmpresa dados){
+    public void adicionar(DadosCadastroEmpresa dados){
 
         this.verificaCampos(dados.nome(), dados.cnpj());
 
@@ -45,8 +46,9 @@ public class EmpresaService {
         empresa.atualizarInformacoes(dados);
     }
 
-    public void Deletetar(Long id){
-        Empresa empresa = repository.getReferenceById(id);
+    public void deletetar(Long id){
+        Empresa empresa = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Entregador não encontrado para o ID: " + id));
         empresa.excluir();
     }
 

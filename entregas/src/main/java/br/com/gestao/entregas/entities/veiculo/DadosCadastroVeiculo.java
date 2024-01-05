@@ -10,8 +10,6 @@ public record DadosCadastroVeiculo(
         String marca,
         @NotNull
         Tipo tipo,
-        @NotNull
-        Double peso,
         @NotBlank
         String placa
         ) {

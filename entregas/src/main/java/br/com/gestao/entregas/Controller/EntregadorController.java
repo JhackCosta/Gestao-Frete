@@ -30,14 +30,14 @@ public class EntregadorController {
     @Operation(summary = "lista de entregadores", method = "GET")
     @GetMapping("/listAll")
     public ResponseEntity<Page<DadosListagemEntregador>> GetAll(@PageableDefault(size = 10, sort = "nome") Pageable paginacao){
-        Page<DadosListagemEntregador> page = service.BuscarAll(paginacao);
+        Page<DadosListagemEntregador> page = service.buscarAll(paginacao);
         return ResponseEntity.ok(page);
     }
 
     @Operation(summary = "Buscar entregadores por id", method = "GET")
     @GetMapping("/id={id}")
     public ResponseEntity<DadosListagemEntregador> Get(@PathVariable Long id){
-        Optional<DadosListagemEntregador> entregador = service.Buscar(id);
+        Optional<DadosListagemEntregador> entregador = service.buscar(id);
 
         if (entregador.isPresent()) {
             return ResponseEntity.ok(entregador.get());
@@ -49,7 +49,7 @@ public class EntregadorController {
     @Operation(summary = "Cadastro de entregador", method = "POST")
     @PostMapping(value = "/criar", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<HttpStatus> Post(@RequestBody @Valid DadosCadastroEntregador entregador){
-            service.Adicionar(entregador);
+            service.adicionar(entregador);
             return new ResponseEntity<HttpStatus>(HttpStatus.CREATED);
     }
 
@@ -65,7 +65,7 @@ public class EntregadorController {
     @DeleteMapping("/id={id}")
     @Transactional
     public ResponseEntity<Object> Delete(@PathVariable Long id){
-        service.Deletetar(id);
+        service.deletetar(id);
         return ResponseEntity.noContent().build();
     }
 

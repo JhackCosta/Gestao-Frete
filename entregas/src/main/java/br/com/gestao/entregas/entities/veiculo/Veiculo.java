@@ -34,7 +34,7 @@ public class Veiculo {
     private Tipo tipo;
 
     @Column(name = "PESO")
-    private Double peso;
+    private int peso;
 
     @Column(name = "Placa", unique = true)
     private String placa;
@@ -42,28 +42,24 @@ public class Veiculo {
 
     public Veiculo(DadosCadastroVeiculo dados) {
         this.marca = dados.marca();
-        this.peso = dados.peso();
         this.tipo = dados.tipo();
         this.placa = dados.placa();
     }
 
     public Veiculo(DadosCadastroVeiculo dados, Entregador proprietario) {
         this.marca = dados.marca();
-        this.peso = dados.peso();
         this.tipo = dados.tipo();
         this.placa = dados.placa();
         this.proprietario = proprietario;
+       this.verificarPeso(dados.tipo());
 
     }
 
     public void atualizarInformacoes(DadosAtualizacaoVeiculo dados , Entregador proprietario) {
 
-        if (dados.peso() != null) {
-            this.peso = dados.peso();
-        }
-
         if (dados.tipo() != null) {
             this.tipo = dados.tipo();
+            this.verificarPeso(dados.tipo());
         }
 
         if (dados.marca() != null) {
@@ -76,6 +72,18 @@ public class Veiculo {
 
         if (proprietario != null) {
             this.proprietario = proprietario;
+        }
+    }
+    private void verificarPeso(Tipo tipo){
+
+        if(tipo == Tipo.CAMINHONETE){
+            this.peso = 5;
+        }
+        if(tipo == Tipo.FURGAO){
+            this.peso = 4;
+        }
+        if(tipo == Tipo.CAMINHAO){
+            this.peso = 10;
         }
     }
 }

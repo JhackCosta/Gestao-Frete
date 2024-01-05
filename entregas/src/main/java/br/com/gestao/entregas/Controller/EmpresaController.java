@@ -31,14 +31,14 @@ public class EmpresaController {
     @Operation(summary = "lista de empresas", method = "GET")
     @GetMapping("/listAll")
     public ResponseEntity<Page<DadosListagemEmpresa>> GetAll(@PageableDefault(size = 10, sort = "nome") Pageable paginacao){
-        Page<DadosListagemEmpresa> page = service.BuscarAll(paginacao);
+        Page<DadosListagemEmpresa> page = service.buscarAll(paginacao);
         return ResponseEntity.ok(page);
     }
 
     @Operation(summary = "Buscar empresa por id", method = "GET")
     @GetMapping("/id={id}")
     public ResponseEntity<DadosListagemEmpresa> Get(@PathVariable Long id){
-        Optional<DadosListagemEmpresa> empresa = service.Buscar(id);
+        Optional<DadosListagemEmpresa> empresa = service.buscar(id);
 
         if (empresa.isPresent()) {
             return ResponseEntity.ok(empresa.get());
@@ -51,7 +51,7 @@ public class EmpresaController {
     @PostMapping(value = "/criar", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
     public ResponseEntity<HttpStatus> Post(@RequestBody @Valid DadosCadastroEmpresa empresa){
-        service.Adicionar(empresa);
+        service.adicionar(empresa);
         return new ResponseEntity<HttpStatus>(HttpStatus.CREATED);
 
     }
@@ -67,7 +67,7 @@ public class EmpresaController {
     @DeleteMapping("/id={id}")
     @Transactional
     public ResponseEntity<Object> Delete(@PathVariable Long id){
-        service.Deletetar(id);
+        service.deletetar(id);
         return ResponseEntity.noContent().build();
     }
 

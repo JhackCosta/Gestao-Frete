@@ -29,14 +29,14 @@ public class VeiculoController {
     @Operation(summary = "lista de veiculos", method = "GET")
     @GetMapping("/listAll")
     public ResponseEntity<Page<DadosListagemVeiculo>> GetAll(@PageableDefault(size = 10, sort = "marca") Pageable paginacao){
-        Page<DadosListagemVeiculo> page = service.BuscarAll(paginacao);
+        Page<DadosListagemVeiculo> page = service.buscarAll(paginacao);
         return ResponseEntity.ok(page);
     }
 
     @Operation(summary = "Buscar veiculo por id", method = "GET")
     @GetMapping("/id={id}")
     public ResponseEntity<DadosListagemVeiculo> Get(@PathVariable Long id){
-        Optional<DadosListagemVeiculo> entregador = service.Buscar(id);
+        Optional<DadosListagemVeiculo> entregador = service.buscar(id);
 
         if (entregador.isPresent()) {
             return ResponseEntity.ok(entregador.get());
@@ -48,7 +48,7 @@ public class VeiculoController {
     @Operation(summary = "Cadastro de veiculo", method = "POST")
     @PostMapping(value = "/criar", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<HttpStatus> Post(@RequestBody @Valid DadosCadastroVeiculo veiculo) {
-        service.Adicionar(veiculo);
+        service.adicionar(veiculo);
         return new ResponseEntity<HttpStatus>(HttpStatus.CREATED);
     }
 
@@ -64,7 +64,7 @@ public class VeiculoController {
     @DeleteMapping("/id={id}")
     @Transactional
     public ResponseEntity<Object> Delete(@PathVariable Long id){
-        service.Deletetar(id);
+        service.deletetar(id);
         return ResponseEntity.noContent().build();
     }
 

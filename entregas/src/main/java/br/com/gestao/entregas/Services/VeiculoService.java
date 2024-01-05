@@ -25,22 +25,22 @@ public class VeiculoService {
     @Autowired
     private EntregadorRepository entregadorRepository;
 
-    public Page<DadosListagemVeiculo> BuscarAll(Pageable paginacao){
+    public Page<DadosListagemVeiculo> buscarAll(Pageable paginacao){
         return repository.findAll(paginacao).map(DadosListagemVeiculo::new);
     }
-    public Optional<DadosListagemVeiculo> Buscar(Long id){
+    public Optional<DadosListagemVeiculo> buscar(Long id){
         if (id == null) {
             throw new IllegalArgumentException("O ID não pode ser nulo");
         }
         return repository.findById(id).map(DadosListagemVeiculo::new);
     }
-    public void Adicionar(DadosCadastroVeiculo dados) {
-        Long proprietarioId = dados.idProprietario();
+    public void adicionar(DadosCadastroVeiculo dados) {
+
         Optional<Entregador> entregadorOptional = entregadorRepository.findById(dados.idProprietario());
         Entregador proprietario = entregadorOptional.orElse(null);
 
         if(proprietario == null) {
-            throw new EntityNotFoundException("Entregador não encontrado para o ID: " + proprietarioId);
+            throw new EntityNotFoundException("Entregador não encontrado para o ID: " + dados.idProprietario());
         }
 
         if (repository.existsByPlaca(dados.placa())) {
@@ -52,12 +52,12 @@ public class VeiculoService {
 
     }
     public void alterar(DadosAtualizacaoVeiculo dados){
-        Long proprietarioId = dados.idProprietario();
+
         Optional<Entregador> entregadorOptional = entregadorRepository.findById(dados.idProprietario());
         Entregador proprietario = entregadorOptional.orElse(null);
 
         if(proprietario == null){
-            throw new EntityNotFoundException("Entregador não encontrado para o ID: " + proprietarioId);
+            throw new EntityNotFoundException("Entregador não encontrado para o ID: " + dados.idProprietario());
         }
 
         if (repository.existsByPlaca(dados.placa())) {
@@ -68,7 +68,7 @@ public class VeiculoService {
         veiculo.atualizarInformacoes(dados, proprietario);
     }
 
-    public void Deletetar(Long id){
+    public void deletetar(Long id){
        repository.deleteById(id);
     }
 }
