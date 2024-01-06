@@ -2,9 +2,10 @@ package br.com.gestao.entregas.entities.frete;
 
 public enum Status {
 
-    ACEITO(1),
-    REALIZANDO(2),
-    FINALIZADO(3);
+    PENDENTE(1),
+    ACEITO(2),
+    REALIZANDO(3),
+    FINALIZADO(4);
 
     private final int status;
     Status(int statusOpcao){

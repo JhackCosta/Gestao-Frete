@@ -7,6 +7,12 @@ public record DadosCadastroFrete(
         @NotBlank
         String nota,
 
+        @NotBlank
+        String produto,
+
+        @NotBlank
+        String descricao,
+
         @NotNull
         Long solicitante,
 

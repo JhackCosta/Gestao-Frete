@@ -15,7 +15,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class FreteService {
@@ -34,6 +36,10 @@ public class FreteService {
 
     public Page<DadosListagemFrete> buscarAll(Pageable paginacao) {
         return repository.findAll(paginacao).map(DadosListagemFrete::new);
+    }
+
+    public List<DadosListagemFrete> buscarStatus(String status) {
+        return repository.findByStatus(status).stream().map(DadosListagemFrete::new).collect(Collectors.toList());
     }
 
     public Optional<DadosListagemFrete> buscar(Long id) {

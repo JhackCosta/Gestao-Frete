@@ -26,13 +26,22 @@ public class Frete {
     @Column(name = "NOTA_FISCAL", unique = true, nullable = false)
     private String nota;
 
+    @Column(name = "PRODUTO")
+    private String produto;
+
+    @Column(name = "DESCRICAO")
+    private String descricao;
+
     @JoinColumn(name = "FK_EMPRESA")
+    @OneToOne
     private Empresa solicitante;
 
     @JoinColumn(name = "FK_ENTREGADOR")
+    @OneToOne
     private Entregador motorista;
 
     @JoinColumn(name = "FK_Veiculo")
+    @OneToOne
     private Veiculo veiculo;
 
     @Column(name = "STATUS")
@@ -50,6 +59,8 @@ public class Frete {
 
     public Frete(DadosCadastroFrete dados, Empresa empresa, Entregador proprietario, Veiculo veiculo, double valor) {
         this.nota = dados.nota();
+        this.produto = dados.produto();
+        this.descricao = dados.descricao();
         this.solicitante = empresa;
         this.motorista = proprietario;
         this.veiculo = veiculo;
@@ -61,6 +72,12 @@ public class Frete {
 
         if(dados.nota() != null){
             this.nota = dados.nota();
+        }
+        if(dados.produto() != null){
+            this.produto = dados.produto();
+        }
+        if(dados.descricao() != null){
+            this.descricao= dados.descricao();
         }
         if(empresa != null){
             this.solicitante = empresa;
