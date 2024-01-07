@@ -1,9 +1,9 @@
 package br.com.gestao.entregas.entities.veiculo;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record DadosAtualizacaoVeiculo(
-        @NotBlank
+        @NotNull
         Long id,
         Long idProprietario,
         String marca,

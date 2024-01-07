@@ -9,6 +9,7 @@ import br.com.gestao.entregas.entities.entregador.Entregador;
 import br.com.gestao.entregas.entities.frete.*;
 import br.com.gestao.entregas.entities.veiculo.Veiculo;
 import br.com.gestao.entregas.infra.EntityNotFoundException;
+import br.com.gestao.entregas.infra.FreteEmAndamentoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -85,6 +86,11 @@ public class FreteService {
         double valor = this.calculorValorTotalFrete(dados.km(),peso);
 
         Frete frete = repository.getReferenceById(dados.id());
+
+        if(frete.getStatus() == Status.REALIZANDO && dados.status() == Status.REALIZANDO ){
+            throw new FreteEmAndamentoException("Nao pode alterar frete em andamento");
+        }
+
         frete.atualizarInformacoes(dados, empresa, proprietario, veiculo, valor);
     }
 
@@ -112,7 +118,7 @@ public class FreteService {
         if (!entregadorRepository.existsById(entregador)) {
             throw new DataIntegrityViolationException("ID Entregador " + entregador + " nao existe");
         }
-        if (!veiculoRepository.existsById(entregador)) {
+        if (!veiculoRepository.existsById(veiculo)) {
             throw new DataIntegrityViolationException("ID Veiculo " + veiculo + " nao existe");
         }
     }

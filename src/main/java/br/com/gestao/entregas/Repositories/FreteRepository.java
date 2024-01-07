@@ -14,6 +14,9 @@ public interface FreteRepository extends JpaRepository<Frete, Long> {
     @Query("SELECT f FROM Frete f WHERE UPPER(f.status) LIKE UPPER(CONCAT('%', :status, '%'))")
     List<Frete> findByStatus(String status);
 
+    List<Frete> findByNotaAndIdNot(String nota, long id);
+
+
 /*    @Query("SELECT * FROM Frete f WHERE UPPER(f.STATUS) LIKE UPPER('%PENDENTE%')")
     List<Frete> findStatusPendente();
 

@@ -23,7 +23,7 @@ public class Frete {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "NOTA_FISCAL", unique = true, nullable = false)
+    @Column(name = "NOTA_FISCAL")
     private String nota;
 
     @Column(name = "PRODUTO")
@@ -33,15 +33,15 @@ public class Frete {
     private String descricao;
 
     @JoinColumn(name = "FK_EMPRESA")
-    @OneToOne
+    @ManyToOne
     private Empresa solicitante;
 
     @JoinColumn(name = "FK_ENTREGADOR")
-    @OneToOne
+    @ManyToOne
     private Entregador motorista;
 
     @JoinColumn(name = "FK_Veiculo")
-    @OneToOne
+    @ManyToOne
     private Veiculo veiculo;
 
     @Column(name = "STATUS")
@@ -67,6 +67,7 @@ public class Frete {
         this.status = dados.status();
         this.km = dados.km();
         this.valor = valor;
+        this.ativo = true;
     }
     public void atualizarInformacoes(DadosAtualizacaoFrete dados, Empresa empresa, Entregador proprietario, Veiculo veiculo, double valor) {
 
@@ -93,6 +94,9 @@ public class Frete {
         }
         if(dados.km() != null){
             this.km = dados.km();
+        }
+        if(dados.ativo() != null) {
+            this.setAtivo(dados.ativo());
         }
         this.valor = valor;
 

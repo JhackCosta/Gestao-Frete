@@ -19,7 +19,7 @@ public class Exception {
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<String> tratarErro404(EntityNotFoundException ex) {
-        String mensagem = ex.getMessage(); // Obtém a mensagem da exceção
+        String mensagem = ex.getMessage();
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(mensagem);
@@ -28,11 +28,21 @@ public class Exception {
     @ExceptionHandler(DataIntegrityViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<String> tratarErroIntegridade(DataIntegrityViolationException ex) {
-        String mensagem = ex.getMessage(); // Obtém a mensagem da exceção
+        String mensagem = ex.getMessage();
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(mensagem);
     }
+
+    @ExceptionHandler(FreteEmAndamentoException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<String> alterarfreteEmAndamento(FreteEmAndamentoException ex) {
+        String mensagem = ex.getMessage();
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(mensagem);
+    }
+
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)

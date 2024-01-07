@@ -26,9 +26,6 @@ public record DadosCadastroFrete(
         Status status,
 
         @NotNull
-        double km,
-
-        @NotNull
-        double valor
+        double km
 ) {
 }

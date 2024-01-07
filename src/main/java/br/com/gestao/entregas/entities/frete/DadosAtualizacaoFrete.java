@@ -1,36 +1,29 @@
 package br.com.gestao.entregas.entities.frete;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record DadosAtualizacaoFrete(
                                     @NotNull
                                     Long id,
 
-                                    @NotBlank
                                     String nota,
 
-                                    @NotBlank
                                     String produto,
 
-                                    @NotBlank
                                     String descricao,
 
-                                    @NotNull
                                     Long solicitante,
 
-                                    @NotNull
                                     Long veiculo,
 
-                                    @NotNull
                                     Long entregador,
 
-                                    @NotNull
                                     Status status,
 
-                                    @NotNull
                                     Double km,
 
-                                    @NotNull
-                                    double valor) {
+                                    double valor,
+
+                                    Boolean ativo
+                                    ) {
 }
