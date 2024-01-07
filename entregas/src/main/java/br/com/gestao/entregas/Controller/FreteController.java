@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -32,6 +33,13 @@ public class FreteController {
     public ResponseEntity<Page<DadosListagemFrete>> GetAll(@PageableDefault(size = 10, sort = "id") Pageable paginacao){
         Page<DadosListagemFrete> page = service.buscarAll(paginacao);
         return ResponseEntity.ok(page);
+    }
+
+    @Operation(summary = "Buscar frete por status", method = "GET")
+    @GetMapping("/status={s}")
+    public ResponseEntity<List<DadosListagemFrete>> status(@PathVariable String s){
+        List<DadosListagemFrete> frete = service.buscarStatus(s);
+        return ResponseEntity.ok(frete);
     }
 
     @Operation(summary = "Buscar frete por id", method = "GET")
