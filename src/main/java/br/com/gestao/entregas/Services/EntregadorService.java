@@ -5,7 +5,7 @@ import br.com.gestao.entregas.entities.entregador.DadosAtualizacaoEntregador;
 import br.com.gestao.entregas.entities.entregador.DadosCadastroEntregador;
 import br.com.gestao.entregas.entities.entregador.DadosListagemEntregador;
 import br.com.gestao.entregas.entities.entregador.Entregador;
-import br.com.gestao.entregas.infra.EntityNotFoundException;
+import br.com.gestao.entregas.infra.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;

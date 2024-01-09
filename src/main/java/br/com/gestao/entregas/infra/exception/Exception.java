@@ -1,4 +1,4 @@
-package br.com.gestao.entregas.infra;
+package br.com.gestao.entregas.infra.exception;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
