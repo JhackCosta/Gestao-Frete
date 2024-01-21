@@ -1,9 +1,7 @@
 package br.com.gestao.entregas.Controller;
 
 import br.com.gestao.entregas.Services.FreteService;
-import br.com.gestao.entregas.entities.frete.DadosAtualizacaoFrete;
-import br.com.gestao.entregas.entities.frete.DadosCadastroFrete;
-import br.com.gestao.entregas.entities.frete.DadosListagemFrete;
+import br.com.gestao.entregas.entities.frete.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -67,6 +65,12 @@ public class FreteController {
     public void Put(@RequestBody @Valid DadosAtualizacaoFrete dados){
         service.alterar(dados);
         ResponseEntity.ok();
+    }
+    @Operation(summary = "alterar status do frete", method = "PUT")
+    @PutMapping("/alterar/status")
+    @Transactional
+    public void putStatus(@RequestBody @Valid DadosAtualizacaoStatusFrete dados){
+        service.alterarStatus(dados);
     }
 
     @Operation(summary = "Deletar veiculo por id", method = "DELETE")

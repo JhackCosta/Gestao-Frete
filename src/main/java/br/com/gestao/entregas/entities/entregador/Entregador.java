@@ -4,8 +4,8 @@ import br.com.gestao.entregas.entities.Usuario;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity(name = "ENTREGRADOR")
-@Table(name = "ENTREGRADOR")
+@Entity(name = "ENTREGADOR")
+@Table(name = "ENTREGADOR")
 @Getter
 @Setter
 @NoArgsConstructor

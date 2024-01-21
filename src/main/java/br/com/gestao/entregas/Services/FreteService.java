@@ -72,7 +72,7 @@ public class FreteService {
 
     public void alterar(DadosAtualizacaoFrete dados) {
 
-        this.verificaCampos(dados.nota(), dados.solicitante(), dados.entregador(), dados.veiculo());
+        this.verificaCamposAlterar(dados.id(), dados.nota(), dados.solicitante(), dados.entregador(), dados.veiculo());
 
         Optional<Empresa> empresaOptional = empresaRepository.findById(dados.solicitante());
         Optional<Entregador> entregadorOptional = entregadorRepository.findById(dados.entregador());
@@ -94,11 +94,15 @@ public class FreteService {
         frete.atualizarInformacoes(dados, empresa, proprietario, veiculo, valor);
     }
 
-    public void alterarStatus(Long id, Status status){
-        Frete frete = repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Frete não encontrado para o ID: " + id));
+    public void alterarStatus(DadosAtualizacaoStatusFrete dados){
+        Frete frete = repository.findById(dados.id())
+                .orElseThrow(() -> new EntityNotFoundException("Frete não encontrado para o ID: " + dados.id()));
 
-        frete.alterarStatus(status);
+        if(dados.nota().equals(frete.getNota())){
+            frete.alterarStatus(dados.status());
+        }else{
+            throw new DataIntegrityViolationException("O Numero  da nota: " + dados.nota() + " nao percetem ao id: " + dados.id() );
+        }
     }
 
     public void deletetar(Long id) {
@@ -122,7 +126,6 @@ public class FreteService {
             throw new DataIntegrityViolationException("ID Veiculo " + veiculo + " nao existe");
         }
     }
-
     private double calculorValorTotalFrete(double km, int peso) {
 
         double taxaFixa = this.calcularTaxaFixa(km);
@@ -141,6 +144,29 @@ public class FreteService {
             return 0.10;
         } else {
             return 0.075;
+        }
+    }
+
+    private void verificaCamposAlterar(Long id, String nota, Long solicitante, Long entregador, Long veiculo){
+        Optional<Frete> notaOptional = repository.findById(id);
+        Frete dados = notaOptional.orElse(null);
+
+        if(notaOptional.isPresent()){
+            if(nota.equals(dados.getNota())){
+                return;
+            }else{
+                throw new DataIntegrityViolationException("Frete com esta nota fiscal: " + nota + " ja cadastrado");
+            }
+        }
+
+        if (!empresaRepository.existsById(solicitante)) {
+            throw new DataIntegrityViolationException("ID Solicitante: " + solicitante + " nao existe ");
+        }
+        if (!entregadorRepository.existsById(entregador)) {
+            throw new DataIntegrityViolationException("ID Entregador " + entregador + " nao existe");
+        }
+        if (!veiculoRepository.existsById(veiculo)) {
+            throw new DataIntegrityViolationException("ID Veiculo " + veiculo + " nao existe");
         }
     }
 }
